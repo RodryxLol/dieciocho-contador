@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuenta regresiva al 18 de septiembre</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background: linear-gradient(to bottom, #ffffff, #e3f2fd);
+      color: #212529;
+      animation: fondo 20s infinite alternate;
+    }
+
+    @keyframes fondo {
+      0% { background-color: #ffffff; }
+      50% { background-color: #fbe8e8; }
+      100% { background-color: #e3f2fd; }
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #d32f2f;
+      margin-top: 40px;
+    }
+
+    p {
+      font-size: 2em;
+      color: #0d47a1;
+      margin-top: 20px;
+    }
+
+    .bandera {
+      width: 120px;
+      margin-top: 20px;
+      animation: flameo 2s infinite alternate;
+    }
+
+    @keyframes flameo {
+      0% { transform: rotate(-2deg); }
+      100% { transform: rotate(2deg); }
+    }
+
+    .decoracion {
+      background: repeating-linear-gradient(
+        45deg,
+        red,
+        red 10px,
+        white 10px,
+        white 20px,
+        blue 20px,
+        blue 30px
+      );
+      height: 15px;
+      margin-top: 30px;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 24px;
+      font-size: 1.2em;
+      background-color: #d32f2f;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #b71c1c;
+    }
+
+    #video {
+      margin-top: 30px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="decoracion"></div>
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Flag_of_Chile.svg/200px-Flag_of_Chile.svg.png"
+       alt="Bandera de Chile" class="bandera">
+
+  <h1>🎉 ¡Cuenta regresiva para el 18 de septiembre! 🇨🇱</h1>
+  <p id="contador">Calculando...</p>
+
+  <button onclick="mostrarVideo()">▶️ ¡Reproducir cueca chilena!</button>
+
+  <div id="video">
+    <!-- Reemplaza el VIDEO_ID con el que quieras -->
+    <iframe width="300" height="169" 
+            src="https://www.youtube.com/watch?v=Xz6PJTGA-i8" 
+            title="Cueca chilena"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="decoracion"></div>
+
+  <script>
+    function actualizarContador() {
+      const ahoraChile = new Date().toLocaleString("en-US", { timeZone: "America/Santiago" });
+      const fechaActual = new Date(ahoraChile);
+
+      let año = fechaActual.getFullYear();
+      let objetivo = new Date(`September 18, ${año} 00:00:00 GMT-0400`);
+      if (fechaActual > objetivo) {
+        objetivo = new Date(`September 18, ${año + 1} 00:00:00 GMT-0400`);
+      }
+
+      const diff = objetivo - fechaActual;
+
+      const segundos = Math.floor((diff / 1000) % 60);
+      const minutos = Math.floor((diff / 1000 / 60) % 60);
+      const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      document.getElementById("contador").textContent =
+        `Faltan ${dias} días, ${horas} horas, ${minutos} minutos y ${segundos} segundos 🎊.`;
+    }
+
+    function mostrarVideo() {
+      document.getElementById('video').style.display = 'block';
+    }
+
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
+  </script>
+</body>
+</html>
